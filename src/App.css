@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.backgroud {
+  background-image: url('./moon.jpg');
+  background-size: cover;
+  color: white;
+  background-position : center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
