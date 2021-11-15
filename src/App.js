@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState } from 'react'
 import { Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
-import Data from './data.js'
+import Data from './Data.js'
 import { Link, Route, Switch } from 'react-router-dom'
 import Detail from './Detail';
 
@@ -30,7 +30,7 @@ function App() {
                 </NavDropdown>
               </Nav>
               <Nav>
-                <Nav.Link><Link to="/detail">Detail</Link></Nav.Link>
+                <Nav.Link><Link to="/detail/0">Detail</Link></Nav.Link>
                 <Nav.Link eventKey={2} href="#memes">
                   Dank memes
                 </Nav.Link>
@@ -38,7 +38,6 @@ function App() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-
         <Switch>
           <Route exact path="/">
             <Card className="text-center backgroud">
@@ -68,11 +67,8 @@ function App() {
               </div>
             </div>
           </Route>
-          <Route path="/detail">
-            <Detail />
-          </Route>
-          <Route path="/:id">
-            <div>아무거나 ㅋ</div>
+          <Route path="/detail/:id">
+            <Detail shoes={shoes} />
           </Route>
         </Switch>
       </>
