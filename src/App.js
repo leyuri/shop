@@ -2,8 +2,8 @@ import './App.css';
 import React, { useState } from 'react'
 import { Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
 import Data from './data.js'
-
 import { Link, Route, Switch } from 'react-router-dom'
+import Detail from './Detail';
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
       <>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="/">Shoe Shop 👟
+            <Navbar.Brand ><Link to="/">Shoe Shop 👟</Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -30,7 +30,7 @@ function App() {
                 </NavDropdown>
               </Nav>
               <Nav>
-                <Nav.Link href="#deets">More deets</Nav.Link>
+                <Nav.Link><Link to="/detail">Detail</Link></Nav.Link>
                 <Nav.Link eventKey={2} href="#memes">
                   Dank memes
                 </Nav.Link>
@@ -39,51 +39,42 @@ function App() {
           </Container>
         </Navbar>
 
-        <Route exact path="/">
-          <Card className="text-center backgroud">
-            {/* <Card.Header>Featured</Card.Header> */}
-            <Card.Body>
-              <br />
-              <br />
-              <h1>20% Season Off.</h1>
-              {/* <Card.Title>Special title treatment</Card.Title> */}
-              <Card.Text>
-                This site offer a biggest sale product in the Korea.
-                We hope you to enjoy here
-              </Card.Text>
-              <Button variant="light">Shop Gifts</Button>
-              <br />
-              <br />
-            </Card.Body>
-            {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
-          </Card>
+        <Switch>
+          <Route exact path="/">
+            <Card className="text-center backgroud">
+              {/* <Card.Header>Featured</Card.Header> */}
+              <Card.Body>
+                <br />
+                <br />
+                <h1>20% Season Off.</h1>
+                {/* <Card.Title>Special title treatment</Card.Title> */}
+                <Card.Text>
+                  This site offer a biggest sale product in the Korea.
+                  We hope you to enjoy here
+                </Card.Text>
+                <Button variant="light">Shop Gifts</Button>
+                <br />
+                <br />
+              </Card.Body>
+              {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+            </Card>
 
-          <div className="container">
-            <div className="row">
-              {shoes.map((item, index) => {
-                return (<ShoesCard key={index} shoes={item} index={index} />)
-                // return (<ShoesCard key={index} shoes={shoes[index]} />)
-              })}
-            </div>
-          </div>
-
-        </Route>
-        <Route path="/detail">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6">
-                <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="" width="100%" />
-              </div>
-              <div className="col-md-6 mt-4">
-                <h4 className="pt-5">상품명</h4>
-                <p>상품설명</p>
-                <p>120000원</p>
-                <button className="btn btn-danger">주문하기</button>
+            <div className="container">
+              <div className="row">
+                {shoes.map((item, index) => {
+                  return (<ShoesCard key={index} shoes={item} index={index} />)
+                  // return (<ShoesCard key={index} shoes={shoes[index]} />)
+                })}
               </div>
             </div>
-          </div>
-        </Route>
-        {/* <Route path="어쩌구" component={Modal}></Route> */}
+          </Route>
+          <Route path="/detail">
+            <Detail />
+          </Route>
+          <Route path="/:id">
+            <div>아무거나 ㅋ</div>
+          </Route>
+        </Switch>
       </>
     </div>
   );
