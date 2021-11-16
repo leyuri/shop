@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import './Detail.scss'
@@ -15,17 +15,30 @@ let Title = styled.h4`
 
 function Detail(props) {
 
+    let [alert, setAlert] = useState(true)
+    let [inputData, setInputData] = useState('')
     let { id } = useParams(); // {}
     let history = useHistory()
     let findedItem = props.shoes.find(item => item.id == id)
 
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            setAlert(false)
+            console.log("hi")
+            return () => { clearTimeout(timer) }
+        }, 2000)
+    }, [])
+
     return (
         <div className="container">
             <Box><Title color="red">Detail</Title></Box>
-            <div className="my-alert">
-                <p>재고가 얼마 남지 않았습니다.</p>
-            </div>
-
+            {inputData}
+            <input onChange={(e) => setInputData(e.target.value)} />
+            {
+                alert === true ? (<div className="my-alert">
+                    <p>재고가 얼마 남지 않았습니다.</p>
+                </div>) : null
+            }
             <div className="row">
                 <div className="col-md-6">
                     <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="" width="100%" />
