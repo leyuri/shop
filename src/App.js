@@ -4,6 +4,7 @@ import { Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstr
 import Data from './Data.js'
 import { Link, Route, Switch } from 'react-router-dom'
 import Detail from './Detail';
+import axios from 'axios';
 
 function App() {
 
@@ -65,6 +66,18 @@ function App() {
                   // return (<ShoesCard key={index} shoes={shoes[index]} />)
                 })}
               </div>
+              <button className="btn btn-dark" onClick={() => {
+                // 로딩 중이라는 UI 띄움 (state 가 true 일 때 표시하도록)
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                  .then((result) => {
+                    // 로딩 중이라는 UI 안 보이게 처리 
+                    console.log("성공", result.data)
+                    setShoes([...shoes, ...result.data])
+                  }).catch(() => {
+                    // 로딩 중이라는 UI 안 보이게 처리 
+                    console.log("실패")
+                  })
+              }}>More</button>
             </div>
           </Route>
           <Route path="/detail/:id">
