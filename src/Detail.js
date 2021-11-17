@@ -14,7 +14,6 @@ let Title = styled.h4`
 
 
 function Detail(props) {
-
     let [alert, setAlert] = useState(true)
     let [inputData, setInputData] = useState('')
     let { id } = useParams(); // {}
@@ -31,9 +30,7 @@ function Detail(props) {
 
     return (
         <div className="container">
-            <Box><Title color="red">Detail</Title></Box>
-            {inputData}
-            <input onChange={(e) => setInputData(e.target.value)} />
+            <Box><Title >Detail</Title></Box>
             {
                 alert === true ? (<div className="my-alert">
                     <p>재고가 얼마 남지 않았습니다.</p>
@@ -47,7 +44,10 @@ function Detail(props) {
                     <h4 className="pt-5">{findedItem.title}</h4>
                     <p>{findedItem.content}</p>
                     <p>{findedItem.price}</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <StockInfo stock={props.stock} />
+                    <button className="btn btn-danger" onClick={() => {
+                        props.setStock([9, 10, 11])
+                    }}>주문하기</button>
                     <button className="btn btn-secondary" onClick={() => {
                         history.goBack()
                     }}>뒤로가기</button>
@@ -57,5 +57,13 @@ function Detail(props) {
     )
 }
 
+function StockInfo(props) {
+    // console.log("props", props)
+    return (
+        <p>재고 : {props.stock[0]}</p>
+    )
+}
+
 export default Detail;
+
 
