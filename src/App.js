@@ -1,10 +1,12 @@
 import './App.css';
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Navbar, Container, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
 import Data from './Data.js'
 import { Link, Route, Switch } from 'react-router-dom'
 import Detail from './Detail';
 import axios from 'axios';
+
+export let stockContext = React.createContext();
 
 function App() {
 
@@ -43,7 +45,6 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Card className="text-center backgroud">
-              {/* <Card.Header>Featured</Card.Header> */}
               <Card.Body>
                 <br />
                 <br />
@@ -61,12 +62,15 @@ function App() {
             </Card>
 
             <div className="container">
-              <div className="row">
-                {shoes.map((item, index) => {
-                  return (<ShoesCard key={index} shoes={item} index={index} />)
-                  // return (<ShoesCard key={index} shoes={shoes[index]} />)
-                })}
-              </div>
+              <stockContext.Provider value={stock}>
+                <div className="row">
+                  {shoes.map((item, index) => {
+                    return (<ShoesCard key={index} shoes={item} index={index} />)
+                    // return (<ShoesCard key={index} shoes={shoes[index]} />)
+                  })}
+                </div>
+              </stockContext.Provider>
+
               <button className="btn btn-dark" onClick={() => {
                 // 로딩 중이라는 UI 띄움 (state 가 true 일 때 표시하도록)
                 axios.get('https://codingapple1.github.io/shop/data2.json')
@@ -82,7 +86,9 @@ function App() {
             </div>
           </Route>
           <Route path="/detail/:id">
-            <Detail shoes={shoes} stock={stock} setStock={setStock} />
+            <stockContext.Provider value={stock}>
+              <Detail shoes={shoes} stock={stock} setStock={setStock} />
+            </stockContext.Provider>
           </Route>
         </Switch>
       </>
@@ -91,13 +97,24 @@ function App() {
 }
 
 function ShoesCard(props) {
+
   return (
     <div className="col-md-4">
       <img alt="" src={`https://codingapple1.github.io/shop/shoes` + (props.index + 1) + `.jpg`} width="100%"></img>
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content} & {props.shoes.price}</p>
+      <Test></Test>
     </div>
   )
 }
+
+function Test() {
+  let stock = useContext(stockContext);
+  return <p>{stock[0]}</p>
+}
+
+
+
+
 export default App;
 

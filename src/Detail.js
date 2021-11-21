@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import './Detail.scss'
+import { stockContext } from './App'
 
 let Box = styled.div`
     padding : 20px
@@ -19,6 +20,7 @@ function Detail(props) {
     let { id } = useParams(); // {}
     let history = useHistory()
     let findedItem = props.shoes.find(item => item.id == id)
+    let stock = useContext(stockContext)
 
     useEffect(() => {
         let timer = setTimeout(() => {
